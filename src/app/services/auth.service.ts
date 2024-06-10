@@ -4,6 +4,8 @@ import { environment } from '../../environments/environment';
 import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Store } from '@ngrx/store';
+import { clearVideos } from '../../../store/videos.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private store: Store
   ) { }
 
   onLogin(data: any) {
@@ -30,7 +33,8 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
-    this.router.navigate(['/login'])
+    this.router.navigate(['/login']);
+    this.store.dispatch(clearVideos())
     this.toastr.warning('User has been logged out successfully!');
     
   }
