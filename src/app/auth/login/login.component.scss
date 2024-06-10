@@ -1,0 +1,24 @@
+.container-fluid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #F0F4F9;
+}
+
+.card {
+  width: 450px;
+  height: 500px;
+  border-radius: 8%;
+}
+
+.form-group label {
+  font-size: 1.2rem;
+  color: #386BC0;
+}
+
+.form-group input {
+  padding: 6px 15px;
+  font-size: 1.2rem;
+  // color: #386BC0;
+}

@@ -1,0 +1,12 @@
+<div class="main-upload">
+  <div class="upload-icon">
+    <i class="fa-solid fa-upload"></i>
+  </div>
+  <div class="form-group mt-4 w-25">
+    <form  [formGroup]="uploadForm">
+      <input type="text" class="form-control mb-3" placeholder="File Name" formControlName="fileName" />
+      <input type="file" (change)="fileChange($event)" class="form-control" id="customFile" formControlName="file" />
+    </form>
+  </div>
+  <button class="btn btn-primary btn-lg mt-4" (click)="upload()" [disabled]="!this.uploadForm.valid">Rock & Roll</button>
+</div>

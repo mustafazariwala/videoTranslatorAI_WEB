@@ -1,0 +1,25 @@
+.main-upload {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.upload-icon {
+  font-size: 5rem;
+  background-color: #c5c4c4;
+  padding: 20px 40px;
+  border-radius: 40px;
+  color: #f1f1f1;
+}
+
+.form-group label {
+  font-size: 1.2rem;
+}
+
+.form-group input {
+  padding: 6px 15px;
+  font-size: 1.2rem;
+  border: 2px solid #C5C4C4;
+}
