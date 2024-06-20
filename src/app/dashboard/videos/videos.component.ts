@@ -5,6 +5,7 @@ import { VideoComponent } from '../video/video.component';
 import { AppState } from '../../../../store/app.state';
 import { Store } from '@ngrx/store';
 import { loadVideos } from '../../../../store/videos.actions';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-videos',
@@ -32,12 +33,9 @@ export class VideosComponent implements OnInit{
     // let videosParsed:any = await this.videosService.getVideos();
     this.store.select('videos').subscribe(({videos}) => {
       if(videos && videos.length > 0) {
-        this.videos = videos.map((video: any) => {
-          let url = 'http://localhost:3000/' + video.filepath;
-          return {...video, url: url};
-        });
+        this.videos = videos
+        console.log(videos)
       }
-      console.log(this.videos)
     })
   }
 

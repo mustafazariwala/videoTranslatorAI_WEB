@@ -7,6 +7,9 @@
       <input type="text" class="form-control mb-3" placeholder="File Name" formControlName="fileName" />
       <input type="file" (change)="fileChange($event)" class="form-control" id="customFile" formControlName="file" />
     </form>
+  <div class="progress-bar">
+    <div class="progress" [ngStyle]="{'width.%':this.uploadProgress}"></div>
+  </div>
   </div>
   <button class="btn btn-primary btn-lg mt-4" (click)="upload()" [disabled]="!this.uploadForm.valid">Rock & Roll</button>
 </div>

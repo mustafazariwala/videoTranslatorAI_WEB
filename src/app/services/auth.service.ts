@@ -11,6 +11,7 @@ import { clearVideos } from '../../../store/videos.actions';
   providedIn: 'root'
 })
 export class AuthService {
+  user:any;
 
   constructor(
     private http: HttpClient,
@@ -24,6 +25,7 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       this.http.post(environment.apiUrl + 'users/login', data).subscribe((res: any) => {
         localStorage.setItem('token', res.token);
+        localStorage.setItem('user', JSON.stringify(res.user));
         resolve(res);
       }, (err) => {
         reject(err);
@@ -33,6 +35,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
     this.router.navigate(['/login']);
     this.store.dispatch(clearVideos())
     this.toastr.warning('User has been logged out successfully!');
@@ -41,5 +44,9 @@ export class AuthService {
 
   getAuthToken() {
     return localStorage.getItem('token') || null;
+  }
+
+  getUser() {
+    return JSON.parse(localStorage.getItem('user') || '{}');
   }
 }

@@ -28,9 +28,9 @@ export class VideosService {
     // })
   }
 
-  postVideo(formData: FormData) {
+  postVideo(data: any) {
     return new Promise((resolve, reject) => {
-      this.http.post(environment.apiUrl + 'videos', formData).subscribe((res: any) => {
+      this.http.post(environment.apiUrl + 'videos', data).subscribe((res: any) => {
         resolve(res);
       }, (err) => {
         reject(err);
