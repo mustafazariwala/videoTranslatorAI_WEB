@@ -1,8 +1,21 @@
-<div class="card">
+<div class="card" >
   <div class="card-body">
-    <h5 class="card-title">{{video.filename}}</h5>
-    <video class="w-100" controls>
-      <source [src]="video.filepath" type="video/mp4" />
-    </video>
+    <div class="button-bar">
+      <h5 class="card-title">{{video.filename}}</h5>
+      <i class="fa-solid fa-ellipsis-vertical"></i>
+      <!-- <button class="btn btn-danger" (click)="deleteVideo()">
+        <i class="fa-solid fa-trash"></i>
+      </button> -->
+    </div>
+    <div class="video" (click)="clickVideoCard()">
+      <img [lazyLoad]="video.thumbpath" [defaultImage]="'https://placehold.jp/dfe1ec/dfe1ec/400x225.png'" alt="">
+      <div class="overlay">
+        <i class="fa-solid fa-play text"></i>
+      </div>
+    </div>
+      <!-- <div class="vieo-thumb" (click)="clickVideoCard()" [lazyLoad]="video.displayImage" defaultImage="https://i.ytimg.com/vi/breg0bQS83U/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBwwMbvfu6aBaHaf4izTGqGCo0_Ww"></div> -->
+      <!-- <img src="https://i.ytimg.com/vi/breg0bQS83U/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBwwMbvfu6aBaHaf4izTGqGCo0_Ww" alt=""> -->
+    <!-- </div> -->
+    <!-- <video class="w-100" [src]="video.filepath + '#t=5'" type="video/mp4"></video> -->
   </div>
 </div>

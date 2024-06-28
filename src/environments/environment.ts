@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: 'https://api.videotranslator.thezariwala.com/',
+  apiUrl: 'http://api.videotranslator.thezariwala.com/',
 };

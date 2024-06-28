@@ -30,7 +30,6 @@ export class VideosComponent implements OnInit{
   ) { }
 
   async getAllVideos() {
-    // let videosParsed:any = await this.videosService.getVideos();
     this.store.select('videos').subscribe(({videos}) => {
       if(videos && videos.length > 0) {
         this.videos = videos
