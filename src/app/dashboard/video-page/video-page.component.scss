@@ -11,6 +11,7 @@
 
 vg-player {
   border-radius: 20px;
+  background-color: rgba(199, 228, 248, 0.247);
 }
 
 .selected {
@@ -30,8 +31,9 @@ vg-player {
 .translation-result {
   display: flex;
   flex-direction: column;
-  min-height: 500px;
+  min-height: 400px;
   gap: 20px 0px;
+  overflow: auto;
 }
 
 .translation-result audio {

@@ -19,13 +19,6 @@ export class VideosService {
         observer.error(err);
       });
     })
-    // return new Promise((resolve, reject) => {
-    //   this.http.get(this.api + 'videos').subscribe((res: any) => {
-    //     resolve(res);
-    //   }, (err) => {
-    //     reject(err);
-    //   });
-    // })
   }
 
   postVideo(data: any) {

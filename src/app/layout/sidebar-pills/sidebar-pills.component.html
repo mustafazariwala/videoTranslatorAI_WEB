@@ -1,10 +1,10 @@
 <ul class="nav nav-pills flex-column mb-auto">
-  <li class="nav-item" [routerLink]="['/upload']">
-      <i class="fa-solid fa-upload ms-2"></i>
-      <span class="ms-4 nav-item-text">Upload</span>
+  <li class="nav-item" [routerLink]="['/upload']" [ngClass]="route == 'upload' ? 'active': ''">
+      <i class="fa-solid fa-upload"></i>
+      <span class="ms-4 nav-item-text d-none d-md-inline-block">Upload</span>
   </li>
-  <li class="nav-item" [routerLink]="['/videos']" >
-    <i class="fa-solid fa-video ms-2"></i>
-    <span class="ms-4 nav-item-text">Videos</span>
+  <li class="nav-item" [routerLink]="['/videos']" [ngClass]="route == 'videos' ? 'active': ''">
+    <i class="fa-solid fa-video"></i>
+    <span class="ms-4 nav-item-text d-none d-md-inline-block">Videos</span>
   </li>
 </ul>

@@ -43,3 +43,8 @@ This is a web application built with Angular 17, leveraging NGRX for state manag
 
 ## Contributing
 Contributions are welcome!
+
+## Push to Server
+git add dist
+git commit -m "Changed API key"
+git subtree push --prefix dist/video-translator-ai-web origin gh-pages

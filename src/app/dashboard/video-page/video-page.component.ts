@@ -42,11 +42,14 @@ export class VideoPageComponent implements OnInit{
   currentIndex = 0;
   currentItem: any = null
   api: any;
+  audioApi: any
   subscriptions: Subscription[] = [];
   currentTime: number = 0;
   videoId:any = null;
   selectedTranslation: any = null;
   generatingTranslation = false;
+
+  audioSources : any;
 
   languageData = [
     { language:"Bengali", translationAvailable: false },
@@ -114,24 +117,46 @@ export class VideoPageComponent implements OnInit{
     this.api
       .getDefaultMedia()
       .subscriptions.loadedMetadata.subscribe(this.playVideo.bind(this));
-
+    this.api.getDefaultMedia().subscriptions.play.subscribe(()=> {
+      if(this.audioApi) {
+        this.audioApi.pause();
+      }
+    });
     this.api.getDefaultMedia().subscriptions.timeUpdate.subscribe((v:any) => {
       this.currentTime = this.api.currentTime;
       console.log(this.currentTime);
     });
   }
 
+  onPlayerAudioReady(api: any) {
+    this.audioApi = api;
+    this.audioApi.getDefaultMedia().subscriptions.play.subscribe(()=> {
+      if(this.api) {
+        this.api.pause();
+      }
+    });
+    this.audioApi.getDefaultMedia().subscriptions.ended.subscribe(
+      () => {
+          this.api.getDefaultMedia().currentTime = 0;
+      }
+    );   
+
+  }
+
+
   nextVideo() {
     this.currentIndex++;
-
     if (this.currentIndex === this.playlist.length) {
       this.currentIndex = 0;
     }
-
     this.currentItem = this.playlist[this.currentIndex];
   }
 
   playVideo() {
+    this.api.play();
+  }
+
+  playAudio() {
     this.api.play();
   }
 
@@ -147,7 +172,7 @@ export class VideoPageComponent implements OnInit{
   onChangeLanguage(event: any) {
     let language = event.target.value;
     this.selectedTranslation = this.languageData.find((t:any) => t.language == language);
-    console.log(this.selectedTranslation);
+    this.setCurrentAudio(this.selectedTranslation.audiooutput)
   }
 
   async generateTranslation() {
@@ -168,6 +193,14 @@ export class VideoPageComponent implements OnInit{
       if(translation) return {...l, translationAvailable: true, ...translation}
       else return l;
     })
+  }
+
+  setCurrentAudio(source: string){
+    this.audioSources = []
+    this.audioSources.push({
+      src: source,
+      type: "audio/mp3"
+    });
   }
 
 }

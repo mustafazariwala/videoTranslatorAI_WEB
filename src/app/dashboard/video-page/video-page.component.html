@@ -1,75 +1,78 @@
 <div class="container-fluid">
   <div class="row">
-  <div class="col-lg-8">
-    <vg-player (onPlayerReady)="onPlayerReady($event)" *ngIf="currentItem">
-      <vg-buffering></vg-buffering>
-  
-      <vg-controls>
-        <vg-play-pause></vg-play-pause>
-        <vg-playback-button></vg-playback-button>
-  
-        <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
-  
-        <vg-scrub-bar>
-          <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-          <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
-        </vg-scrub-bar>
-  
-        <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
-  
-        <vg-mute></vg-mute>
-        <vg-volume></vg-volume>
-  
-        <vg-fullscreen></vg-fullscreen>
-      </vg-controls>
-  
-      <video
-        #media
-        [vgMedia]="$any(media)"
-        [src]="currentItem.src"
-        id="singleVideo"
-        preload="auto"
-        crossorigin
-      ></video>
-    </vg-player>
-  </div>
-  <div class="col-lg-4">
-    <div class="card">
-      <div class="card-body">
-        <div class="form-group">
-          <div class="input-group mb-3">
-            <select
-              type="text"
-              class="form-control"
-              id="language-picker"
-              (change)="onChangeLanguage($event)"
-            >
-            <option disabled selected > Select a Language</option>
-            <option *ngFor="let selectedLanguage of languageData" [ngClass]="selectedLanguage.translationAvailable ? 'selected' : '' " [selected]="selectedTranslation && selectedTranslation.language == selectedLanguage.language">{{selectedLanguage.language}}</option>
-            </select>
-            <button class="btn btn-primary" type="button" [disabled]="!selectedTranslation || selectedTranslation?.translationAvailable" (click)="generateTranslation()" >
-              Generate AI Translation
-            </button>
+    <div class="col-lg-8">
+      <vg-player (onPlayerReady)="onPlayerReady($event)" *ngIf="currentItem">
+        <vg-buffering></vg-buffering>
+          <vg-controls>
+            <vg-play-pause></vg-play-pause>
+            <vg-playback-button></vg-playback-button>
+            <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+            <vg-scrub-bar>
+              <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+              <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+            </vg-scrub-bar>
+            <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+            <vg-mute></vg-mute>
+            <vg-volume></vg-volume>
+            <vg-fullscreen></vg-fullscreen>
+          </vg-controls>
+        <video
+          #media
+          [vgMedia]="$any(media)"
+          [src]="currentItem.src"
+          id="singleVideo"
+          preload="auto"
+          crossorigin
+        ></video>
+      </vg-player>
+    </div>
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="form-group">
+            <div class="input-group mb-3">
+              <select
+                type="text"
+                class="form-control"
+                id="language-picker"
+                (change)="onChangeLanguage($event)"
+              >
+              <option disabled selected > Select a Language</option>
+              <option *ngFor="let selectedLanguage of languageData" [ngClass]="selectedLanguage.translationAvailable ? 'selected' : '' " [selected]="selectedTranslation && selectedTranslation.language == selectedLanguage.language">{{selectedLanguage.language}}</option>
+              </select>
+              <button class="btn btn-primary" type="button" [disabled]="!selectedTranslation || selectedTranslation?.translationAvailable" (click)="generateTranslation()" >
+                Generate AI Translation
+              </button>
+            </div>
           </div>
-        </div>
-        <div>
-          <p *ngIf="!selectedTranslation">No Translation has been selected</p>
-          <div class="generate-loading" *ngIf="generatingTranslation">
-            <i class="fa-solid fa-spinner fa-spin"></i>
-            <span class="fst-italic ">Generating AI Translation</span>
-            <span class="fst-italic ">Awesome stuff takes time</span>
-          </div>
-          <div class="translation-result" *ngIf="selectedTranslation && selectedTranslation?.translationAvailable">
-            <audio controls >
-              <source [src]="this.selectedTranslation.audiooutput">
-            </audio>
-            <p>{{this.selectedTranslation.textoutput}}</p>
+          <div>
+            <p *ngIf="!selectedTranslation">No Translation has been selected</p>
+            <div class="generate-loading" *ngIf="generatingTranslation">
+              <i class="fa-solid fa-spinner fa-spin"></i>
+              <span class="fst-italic ">Generating AI Translation</span>
+              <span class="fst-italic ">Awesome stuff takes time</span>
+            </div>
+            <div class="translation-result" *ngIf="selectedTranslation && selectedTranslation?.translationAvailable">
+              <vg-player style="height: 50px;" (onPlayerReady)="onPlayerAudioReady($event)">
+                  <vg-controls>
+                      <vg-play-pause></vg-play-pause>
+                      <vg-playback-button></vg-playback-button>
+                      <vg-scrub-bar>
+                          <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                          <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                      </vg-scrub-bar>
+                      <vg-mute></vg-mute>
+                  </vg-controls>
+              
+                  <audio #media [vgMedia]="$any(media)" id="myAudio" preload="auto">
+                    <source *ngFor="let video of audioSources" [src]="video.src" [type]="video.type">
+                  </audio>
+              </vg-player>
+              <p>{{this.selectedTranslation.textoutput}}</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-
 </div>
